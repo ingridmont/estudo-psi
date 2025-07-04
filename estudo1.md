@@ -1,18 +1,59 @@
-📁 Estrutura sugerida
-bash
-Copiar
-Editar
-/meu_app
-├── app.py
-├── templates/
-│   ├── base.html
-│   ├── cadastro.html
-│   ├── login.html
-│   ├── area_restrita.html
-🔥 Arquivo principal — app.py
-python
+Perfeito! Segue o **arquivo completo em formato `.md` (Markdown)**, reunindo:
 
---------------------------------------------------------------------------------------------------------------------------
+✅ Respostas teóricas
+✅ Explicação teórica
+✅ Código Flask (app.py completo)
+✅ Templates (base.html, cadastro.html, login.html, area\_restrita.html)
+✅ Estrutura sugerida
+
+---
+
+## 📄 **Conteúdo em Markdown**
+
+````markdown
+# Avaliação Prática - Flask e Flask-Login
+
+## 💡 Questões Teóricas
+
+### Questão 1 (10 pontos)
+
+> Sobre o uso de sessões em Flask, qual a sua função?
+
+**Alternativas**  
+A) Armazenar todo o histórico de requisições HTTP feitas pelo navegador  
+B) Guardar dados temporários que identifiquem o usuário entre diferentes requisições  
+C) Gerar autenticação de chave simétrica de criptografia de ponta a ponta  
+D) Controlar exclusivamente o fluxo de dados para páginas restritas  
+E) Reduzir o tempo de carregamento de páginas, evitando requisições repetidas
+
+**✅ Resposta correta: B)**
+
+**Explicação:**  
+As sessões em Flask servem para guardar dados temporários que identificam o usuário entre diferentes requisições. Por exemplo, quando um usuário faz login, sua identificação pode ser armazenada na sessão para manter o acesso.
+
+---
+
+### Questão 2 (10 pontos)
+
+> Em Flask-Login, para que serve a função @login_required?
+
+**Alternativas**  
+A) Verificar se o usuário já fez login anteriormente sem necessidade de novo login  
+B) Carregar automaticamente os dados do usuário quando ele acessa qualquer rota  
+C) Carregar o objeto do usuário a partir do identificador salvo na sessão  
+D) Impedir que diferentes sessões sejam criadas com dados inválidos  
+E) Criar novas credenciais para o usuário sem necessidade de senha
+
+**✅ Resposta correta: C)**
+
+**Explicação:**  
+A função `@login_required` é usada para proteger rotas. Ela carrega o usuário a partir do identificador salvo na sessão. Caso não exista um usuário autenticado, redireciona para a página de login.
+
+---
+
+## 💻 Código Flask Completo (app.py)
+
+```python
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -29,7 +70,7 @@ usuarios = {}
 
 class User(UserMixin):
     def __init__(self, matricula, email, senha_hash):
-        self.id = matricula  # ID único para o Flask-Login
+        self.id = matricula
         self.email = email
         self.senha_hash = senha_hash
 
@@ -95,13 +136,17 @@ def logout():
     flash("Logout realizado com sucesso.")
     return redirect(url_for("login"))
 
---------------------------------------------------------------------------------------------------------------------------
+if __name__ == "__main__":
+    app.run(debug=True)
+````
 
-💻 Templates
-templates/base.html
-html
-Copiar
-Editar
+---
+
+## 📁 Templates
+
+### `templates/base.html`
+
+```html
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -128,12 +173,13 @@ Editar
     {% block content %}{% endblock %}
 </body>
 </html>
+```
 
-------------------------------------------------------------------------------------------------------------------------
-templates/cadastro.html
-html
-Copiar
-Editar
+---
+
+### `templates/cadastro.html`
+
+```html
 {% extends 'base.html' %}
 
 {% block title %}Cadastro{% endblock %}
@@ -147,12 +193,13 @@ Editar
     <button type="submit">Cadastrar</button>
 </form>
 {% endblock %}
+```
 
----------------------------------------------------------------------------------------------------------------------------
-templates/login.html
-html
-Copiar
-Editar
+---
+
+### `templates/login.html`
+
+```html
 {% extends 'base.html' %}
 
 {% block title %}Login{% endblock %}
@@ -165,12 +212,13 @@ Editar
     <button type="submit">Entrar</button>
 </form>
 {% endblock %}
+```
 
-----------------------------------------------------------------------------------------------------------------------------
-templates/area_restrita.html
-html
-Copiar
-Editar
+---
+
+### `templates/area_restrita.html`
+
+```html
 {% extends 'base.html' %}
 
 {% block title %}Área Restrita{% endblock %}
@@ -179,33 +227,41 @@ Editar
 <h2>Área Restrita</h2>
 <p>Bem-vindo(a), {{ matricula }} ({{ email }})!</p>
 {% endblock %}
+```
 
-------------------------------------------------------------------------------------------------------------------------
+---
 
-✅ Questão 1 (10 pontos)
-Sobre o uso de sessões em Flask, qual a sua função?
+## ✅ Estrutura do projeto recomendada
 
-Alternativas
-A) Armazenar todo o histórico de requisições HTTP feitas pelo navegador
-B) Guardar dados temporários que identifiquem o usuário entre diferentes requisições
-C) Gerar autenticação de chave simétrica de criptografia de ponta a ponta
-D) Controlar exclusivamente o fluxo de dados para páginas restritas
-E) Reduzir o tempo de carregamento de páginas, evitando requisições repetidas
+```
+/meu_app
+├── app.py
+├── templates/
+│   ├── base.html
+│   ├── cadastro.html
+│   ├── login.html
+│   ├── area_restrita.html
+```
 
-✅ Resposta correta: B)
-Explicação:
-As sessões em Flask servem para guardar dados temporários que identificam o usuário durante várias requisições HTTP. Por exemplo, ao fazer login, salvamos o identificador do usuário na sessão para que ele continue autenticado em diferentes páginas.
+---
 
-✅ Questão 2 (10 pontos)
-Em Flask-Login, para que serve a função @login_required?
+## 💬 Observação final
 
-Alternativas
-A) Verificar se o usuário já fez login anteriormente sem necessidade de novo login
-B) Carregar automaticamente os dados do usuário quando ele acessa qualquer rota
-C) Carregar o objeto do usuário a partir do identificador salvo na sessão
-D) Impedir que diferentes sessões sejam criadas com dados inválidos
-E) Criar novas credenciais para o usuário sem necessidade de senha
+* Todo o armazenamento de usuários é feito **em memória**, sem banco de dados.
+* Foi utilizado **Flask-Login** e **UserMixin**, conforme solicitado.
+* Toda a estrutura está modular e pronta para rodar.
 
-✅ Resposta correta: C)
-Explicação:
-A função @login_required é usada para proteger rotas. Ela impede que usuários não autenticados acessem determinada página. Internamente, Flask-Login carrega o usuário a partir do identificador salvo na sessão e, se não existir um usuário válido, redireciona para a página de login.
+---
+
+**Se quiser, posso também enviar esse `.md` pronto em arquivo separado (ou zipado junto ao projeto). Quer que eu envie?** 🚀
+
+```
+
+---
+
+## ✅ **Pronto!**
+
+Se quiser, eu **gero o arquivo `.md` já salvo** (e opcionalmente, já compactado com o projeto) para você baixar direto.  
+
+👉 **Deseja que eu envie o `.md` pronto em anexo?** É só dizer **"Sim, manda o md"**!
+```
