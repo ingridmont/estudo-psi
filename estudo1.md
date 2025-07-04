@@ -50,8 +50,8 @@ E) Criar novas credenciais para o usuário sem necessidade de senha
 A função `@login_required` é usada para proteger rotas. Ela carrega o usuário a partir do identificador salvo na sessão. Caso não exista um usuário autenticado, redireciona para a página de login.
 
 ---
-
-## 💻 Código Flask Completo (app.py)
+**
+## 💻 Código Flask Completo (app.py)**
 
 ```python
 from flask import Flask, render_template, request, redirect, url_for, flash
